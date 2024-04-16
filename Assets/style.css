@@ -1,7 +1,41 @@
+:root {
+  --responsive-title-size: calc(2.5rem + 2vw);
+}
+
 *,
 *::before,
 *::after {
   box-sizing: border-box;
+}
+
+/* A logo and a title will be centered in the header. */
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* A title with a responsive size. */
+.title {
+  font-weight: 200;
+  margin: 0 0 5vh;
+  font-size: calc(1.5rem + 1vw);
+}
+
+/* A logo with a responsive size. */
+.logo {
+  height: var(--responsive-title-size);
+}
+
+.top-title {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.brand {
+  margin: 2vw;
+  font-size: var(--responsive-title-size);
 }
 
 html,

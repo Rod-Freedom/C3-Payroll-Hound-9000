@@ -11,31 +11,45 @@ const collectEmployees = () => {
 
   while (continuePrompt) {
     // Declaring a new object/employee for each loop.
+    // Declaring variables for the prompts.
     let employee = {};
-    let fName = prompt(`What's the employee first name?`);
+    let fName;
+    let lName;
+    let salary;
     
+    // The user will be prompted and alerted if they're entering invalid values.
+    do {
+      fName = prompt(`What's the employee first name?`)
+      if (fName === "") alert('Please enter a valid value.')
+    } while (fName === "")
+  
     // If the user cancels the prompt, it will stop the function. 
     // If the user gives an input, it will be stored as a property of "employee".
-    if (!fName) return
+    if (!fName) return employeesArray
     if (fName) employee.firstName = fName
 
     // The following line turns the first letter of the name into an uppercase for a nice format.
     employee.firstName = employee.firstName.replace(employee.firstName[0], employee.firstName[0].toUpperCase());
     
     // Now asking for the last name, but using the first name for a friendlier experience.
-    let lName = prompt(`What's ${employee.firstName}'s last name?`);
+    do {
+      lName = prompt(`What's ${employee.firstName}'s last name?`);
+      if (lName === "") alert('Please enter a valid value.')
+    } while (lName === "")
     
-    if (!lName) return
+    if (!lName) return employeesArray
     if (lName) employee.lastName = lName
     
     employee.lastName = employee.lastName.replace(employee.lastName[0], employee.lastName[0].toUpperCase());
     
-    let salary = prompt(`What's ${employee.firstName}'s salary?`);
+    // For the salary, the next lines will test if the input given is a number, if not, it'll alert the user.
+    do {
+      salary = prompt(`What's ${employee.firstName}'s salary?`);
+      if (isNaN(salary) || salary === "") alert('Please enter a valid number.')
+    } while (isNaN(salary) || salary === "")
     
-    // For the salary, the next lines will test if the input given is a number, if not, it'll default to "0".
-    // If the user inputs a number, it will be stored as a number value for further uses.
-    if (!salary) return
-    if (isNaN(salary)) employee.salary = 0;
+    // If the user inputs a number, it will be stored as a number value for further use.
+    if (!salary) return employeesArray
     else employee.salary = Number(salary)
   
     // The new employee is being pushed into the global array declared at the top.
@@ -110,16 +124,10 @@ const displayEmployees = (employeesArray) => {
     const salaryCell = document.createElement("td");
     
     // Format the salary as currency
-    // salaryCell.textContent = currentEmployee.salary.toLocaleString("en-US",{
-    //   style:"currency",
-    //   currency:"USD"
-    // });
-
-    // The formula above wasn't working so it needed to be changed. This one is:
-    salaryCell.textContent = new Intl.NumberFormat('en-US', { 
-      style: 'currency', 
-      currency: 'USD'
-    }).format(currentEmployee.salary);
+    salaryCell.textContent = currentEmployee.salary.toLocaleString("en-US", {
+      style: "currency",
+      currency: "USD"
+    });
 
     newTableRow.append(salaryCell);
 
@@ -132,8 +140,11 @@ const trackEmployeeData = () => {
   const employees = collectEmployees();
 
   // If the function above returns undefined due to the user canceling the prompts, it will stop the function.
-  if (employees === undefined) return
-
+  // It will also stop if no employees are added.
+  if (employees === undefined || employees.length === 0) return
+  
+  // If more employees are added, the console will clear.
+  console.clear();
   console.table(employees);
 
   displayAverageSalary(employees);
