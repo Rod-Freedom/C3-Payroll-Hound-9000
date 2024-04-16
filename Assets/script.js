@@ -1,7 +1,6 @@
 // Get a reference to the #add-employees-btn element
 const addEmployeesBtn = document.querySelector('#add-employees-btn');
 const employeeTable = document.querySelector('#employee-table');
-const tableColumns = ['index', 'First Name', 'Second Name', 'Salary'];
 let employeesArray = [];
 
 // Collect employee data
@@ -94,11 +93,9 @@ const getRandomEmployee = (employees) => {
   console.log(`Congratulations to ${employees[eNumber].firstName} ${employees[eNumber].lastName} for winning this month's award!`);
 };
 
-/*
-  ====================
-  STARTER CODE
-  Do not modify any of the code below this line:
-*/
+// ==============================================
+// STARTER CODE
+// Do not modify any of the code below this line:
 
 // Display employee data in an HTML table
 const displayEmployees = (employeesArray) => {
